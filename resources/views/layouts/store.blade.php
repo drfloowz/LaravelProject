@@ -18,7 +18,7 @@
                 <div class="flex items-center">
                     <!-- Logo -->
                     <a href="{{ route('home') }}" class="text-2xl font-extrabold text-indigo-600 tracking-tight">
-                        StoreFront
+                        hepsUz
                     </a>
                     
                     <!-- Categories Links (Desktop) -->
@@ -35,6 +35,21 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
+                    <!-- Cart Icon -->
+                    @php
+                        $cartCount = collect(session('cart', []))->sum('quantity');
+                    @endphp
+                    <a href="{{ route('cart.index') }}" class="relative text-gray-700 hover:text-indigo-600 transition-colors mr-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        @if($cartCount > 0)
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+                                {{ $cartCount }}
+                            </span>
+                        @endif
+                    </a>
+
                     @auth
                         @if(auth()->user()->is_admin)
                             <a href="{{ route('admin.dashboard') }}" class="text-sm text-gray-700 hover:text-indigo-600 font-medium hidden md:block">Admin Panel</a>
@@ -93,7 +108,7 @@
     <footer class="bg-white border-t border-gray-200 mt-auto py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
             <div class="mb-4 md:mb-0">
-                &copy; {{ date('Y') }} StoreFront. Tüm hakları saklıdır.
+                &copy; {{ date('Y') }} hepsUz. Tüm hakları saklıdır.
             </div>
             <div class="flex space-x-6">
                 <a href="#" class="hover:text-gray-900">Hakkımızda</a>

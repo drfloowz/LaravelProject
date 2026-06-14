@@ -20,7 +20,10 @@
         <!-- Modern Ürün Grid Sistemi -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             @foreach($products as $product)
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group relative">
+                    <!-- Tüm Kart İçin Link -->
+                    <a href="{{ url('/product/' . $product->slug) }}" class="absolute inset-0 z-0"><span class="sr-only">Ürünü İncele</span></a>
+                    
                     <!-- Resim Alanı (Sabit Boyutlu) -->
                     <div class="relative w-full h-64 overflow-hidden bg-gray-50">
                         <img src="{{ $product->image_path ? asset('storage/' . $product->image_path) : 'https://via.placeholder.com/400x400?text=Gorsel+Yok' }}" 
@@ -29,19 +32,19 @@
                     </div>
 
                     <!-- Ürün Bilgileri -->
-                    <div class="p-5">
-                        <p class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">
+                    <div class="p-5 relative z-10">
+                        <a href="{{ route('home', ['category' => $product->category->slug ?? '']) }}" class="inline-block text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1 hover:underline">
                             {{ $product->category->name ?? 'Kategori' }}
-                        </p>
+                        </a>
                         <h3 class="text-lg font-bold text-gray-900 mb-2 truncate">
                             {{ $product->name }}
                         </h3>
                         
                         <div class="flex items-center justify-between mt-4">
-                            <span class="text-2xl font-extrabold text-gray-900">₺{{ number_format($product->price, 2) }}</span>
+                            <span class="text-2xl font-extrabold text-gray-900 pointer-events-none">₺{{ number_format($product->price, 2) }}</span>
                             
                             <a href="{{ url('/product/' . $product->slug) }}" 
-                               class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors">
+                               class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors pointer-events-auto">
                                 İncele
                             </a>
                         </div>
