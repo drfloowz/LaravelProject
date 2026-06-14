@@ -82,42 +82,39 @@ Clone the repository to your local directory and navigate into it:
 ```bash
 git clone [https://github.com/drfloowz/hepsuz.git](https://github.com/drfloowz/hepsuz.git)
 cd hepsuz
+```
 
 
-Step 2: Database Setup
-1. 
-Open your local database manager (e.g., phpMyAdmin via XAMPP).
+### Step 2: Database Setup
+1- Open your local database manager (e.g., phpMyAdmin via XAMPP).
+2- Create a new, empty database named laravelproject with utf8mb4_unicode_ci collation.
+3- Duplicate the .env.example file, rename it to .env, and configure your database credentials:
 
-2.
-Create a new, empty database named laravelproject with utf8mb4_unicode_ci collation.
-
-3.
-Duplicate the .env.example file, rename it to .env, and configure your database credentials:
-
+```text
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=laravelproject
 DB_USERNAME=root
 DB_PASSWORD=
+```
 
-
-Step 3: Install Dependencies & Setup
+### Step 3: Install Dependencies & Setup
 Run the following commands sequentially to install packages, generate keys, and link storage for product images:
 
+```bash
 composer install
 npm install
 php artisan key:generate
 php artisan storage:link
-
-
-Step 4: Run Migrations
+```
+### Step 4: Run Migrations
 Build the database schema by running:
+```bash
+php artisan migrate 
+```
 
-php artisan migrate
-
-
-Step 5: Run the Application
+### Step 5: Run the Application
 To launch the application, you need to run the backend and frontend compilers concurrently. Open two separate terminal tabs and run:
 
 Terminal 1 (Backend):
@@ -125,21 +122,33 @@ php artisan serve
 
 Terminal 2 (Frontend/Tailwind):
 npm run dev
+``` 
+## 📂 Project Structure
 
-Access the application in your browser at: http://localhost:8000
+Here is an overview of the key directories and files that make up the Hepsuz e-commerce architecture:
 
-------
-Project Structure
-Key directories of interest:
-
-- app/Http/Controllers/ - Contains the logic for the Frontend, Customer Profile, and Admin operations.
-
-- app/Http/Middleware/ - Contains custom middleware like AdminMiddleware.
-
-- app/Models/ - Eloquent models including complex relations (User, Product, Category, Order, OrderItem, Address, SavedCard).
-
-- database/migrations/ - Database schema blueprints.
-
-- routes/web.php - Routing for the public storefront, authenticated profile pages, and the protected admin group.
-
-- resources/views/ - Blade templates utilizing Tailwind CSS for the UI.
+```text
+hepsuz/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/    # Core logic (Admin, Profile, Product, Cart, Checkout)
+│   │   └── Middleware/     # Security and access layers (e.g., AdminMiddleware)
+│   └── Models/             # Eloquent Models (User, Product, Order, Address, etc.)
+├── database/
+│   ├── migrations/         # Database schema definitions and relational blueprints
+│   └── seeders/            # Database seeders for default test accounts
+├── public/
+│   ├── build/              # Compiled Vite assets (optimized Tailwind CSS/JS)
+│   └── favicon.png         # Hepsuz brand icon
+├── resources/
+│   └── views/              # Blade template ecosystem
+│       ├── admin/          # Admin dashboard, category, and product management UI
+│       ├── layouts/        # Master layouts (Storefront, Admin panel, Auth forms)
+│       ├── profile/        # Customer dashboard, addresses, and order history
+│       └── checkout/       # Secure order placement and payment views
+├── routes/
+│   └── web.php             # Centralized routing (Storefront, Authenticated & Admin groups)
+├── .env.example            # Template for environment variables
+├── README.md               # Project documentation
+├── tailwind.config.js      # Tailwind CSS configuration and theme settings
+└── vite.config.js          # Vite asset bundler configuration
