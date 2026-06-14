@@ -15,10 +15,24 @@ Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.a
 Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\SavedCardController;
+
 Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/profile/addresses', [AddressController::class, 'store'])->name('addresses.store');
+    Route::delete('/profile/addresses/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
+
+    Route::post('/profile/cards', [SavedCardController::class, 'store'])->name('cards.store');
+    Route::delete('/profile/cards/{card}', [SavedCardController::class, 'destroy'])->name('cards.destroy');
 });
 
 use App\Http\Controllers\Admin\CategoryController;
