@@ -80,8 +80,8 @@ Ensure you have the following installed:
 ### Step 1: Clone and Navigate
 Clone the repository to your local directory and navigate into it:
 ```bash
-git clone [https://github.com/drfloowz/hepsuz.git](https://github.com/drfloowz/hepsuz.git)
-cd hepsuz
+git clone [https://github.com/drfloowz/LaravelProject.git](https://github.com/drfloowz/LaravelProject.git)
+cd LaravelProject
 ```
 
 
