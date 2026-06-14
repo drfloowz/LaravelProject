@@ -118,6 +118,8 @@ php artisan migrate
 To launch the application, you need to run the backend and frontend compilers concurrently. Open two separate terminal tabs and run:
 
 Terminal 1 (Backend):
+
+```bash 
 php artisan serve
 
 Terminal 2 (Frontend/Tailwind):
